@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jkstic.testHw.dto.AlimentoDto;
 import com.jkstic.testHw.services.AlimentosService;
+import com.jkstic.testHw.validators.AlimentosValidators;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -23,6 +24,9 @@ public class AlimentosController {
 
 	@Autowired
 	private AlimentosService alimentosService;
+	
+	@Autowired 
+	private AlimentosValidators alimentosValidators;
 	
 	@GetMapping(value = "/alimentos")
 	public ResponseEntity<?> viewAliments(){
@@ -57,6 +61,7 @@ public class AlimentosController {
 	@PostMapping(value = "/alimentos")
 	public ResponseEntity<?> createAliment(@RequestBody AlimentoDto alimento){
 		try {
+			alimentosValidators.alimentosValidatos(alimento);
 			AlimentoDto result = alimentosService.createAliment(alimento);
 			return new ResponseEntity<AlimentoDto>(result, HttpStatus.OK);
 		} catch (Exception e) {
