@@ -1,15 +1,21 @@
 package com.jkstic.testHw.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,26 +29,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="ALIMENTO")
-public class Alimentos implements Serializable{
+@Table(name="DIA")
+public class Dia implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nombre;
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="dd-MM-yyyy")
+	private Date fecha;
 	
-	private Long cantidad;
+	private String comentario;
 	
-	private String medida;
-	
-	@ManyToMany(mappedBy = "listadoAlimentos")
+	@ManyToMany
+	@JoinTable(
+	  name = "dia_recetas", 
+	  joinColumns = @JoinColumn(name = "dia_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "recetas_id"))
 	private List<Recetas> listadoRecetas;
-	
-	@OneToOne
-	private Stock stock;
-
-	
 }

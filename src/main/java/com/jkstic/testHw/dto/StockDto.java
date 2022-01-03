@@ -13,13 +13,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlimentoDto implements Serializable {
+public class StockDto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
-	private String nombre;
-	private Long cantidad;
-	private String medida;
-
-	private StockDto stock;
+	private Long cantidadStock;
 }

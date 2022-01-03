@@ -1,6 +1,7 @@
 package com.jkstic.testHw.rest.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jkstic.testHw.dto.AlimentoDto;
 import com.jkstic.testHw.services.AlimentosService;
+import com.jkstic.testHw.services.StockService;
 import com.jkstic.testHw.validators.AlimentosValidators;
 
 @RestController
@@ -27,6 +29,9 @@ public class AlimentosController {
 	
 	@Autowired 
 	private AlimentosValidators alimentosValidators;
+	
+	@Autowired
+	private StockService stockService;
 	
 	@GetMapping(value = "/alimentos")
 	public ResponseEntity<?> viewAliments(){
@@ -54,6 +59,27 @@ public class AlimentosController {
 			AlimentoDto result = alimentosService.verAliment(nombre);
 			return new ResponseEntity<AlimentoDto>(result, HttpStatus.OK);
 		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping(value = "/alimentos/ids")
+	public ResponseEntity<?> viewIdAliments(){
+		try {
+			Map<Long,String> result = alimentosService.verIdAlimentos();
+			return new ResponseEntity<Map<Long,String>>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping(value = "/alimentos/stock")
+	public ResponseEntity<?> viewStockAliments(){
+		try {
+			Map<String,Long> result = stockService.verStock();
+			return new ResponseEntity<Map<String ,Long>>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}

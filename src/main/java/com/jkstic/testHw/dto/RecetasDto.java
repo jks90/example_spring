@@ -1,6 +1,9 @@
 package com.jkstic.testHw.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.jkstic.testHw.enums.TypeRecetaEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,13 +16,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlimentoDto implements Serializable {
+public class RecetasDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
 	private String nombre;
-	private Long cantidad;
-	private String medida;
-
-	private StockDto stock;
+	private String descripcion;
+	private List<AlimentoDto> listadoAlimentos;
+	private TypeRecetaEnum typo;
 }

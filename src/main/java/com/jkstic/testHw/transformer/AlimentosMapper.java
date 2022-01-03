@@ -1,5 +1,7 @@
 package com.jkstic.testHw.transformer;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -25,5 +27,11 @@ public interface AlimentosMapper {
 		@Mapping(target = "cantidad", source = "dto.cantidad"),
 		@Mapping(target = "medida", source = "dto.medida")})
 	Alimentos alimentoDtotoAlimentos(AlimentoDto dto);
+	
+	
+	List<AlimentoDto> listAlimentosToListAlimentoDto(List<Alimentos> entity);
+	
+	
+	List<Alimentos> listAlimentoDtotoListAlimentos(List<AlimentoDto> dto);
 	
 }

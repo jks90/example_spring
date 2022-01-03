@@ -15,7 +15,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 
 import com.jkstic.testHw.dto.AlimentoDto;
+import com.jkstic.testHw.dto.StockDto;
 import com.jkstic.testHw.models.Alimentos;
+import com.jkstic.testHw.models.Stock;
 import com.jkstic.testHw.repositories.AlimentoRepository;
 import com.jkstic.testHw.services.impl.AlimentosServiceImpl;
 
@@ -41,9 +43,10 @@ public class AlimentosServiceTest {
 	@Test
 	public void when_findallAliment_then_listOK() {
 		
-		Alimentos ali1 = new Alimentos(0L,"harina" ,50, "gr");
-		Alimentos ali2 = new Alimentos(1L,"leche" ,200, "ml");
-		Alimentos ali3 = new Alimentos(2L,"azucar" ,100, "gr");
+		Stock stock = new Stock();
+		Alimentos ali1 = new Alimentos(0L,"harina" ,50L, "gr",null, stock);
+		Alimentos ali2 = new Alimentos(1L,"leche" ,200L, "ml",null, stock);
+		Alimentos ali3 = new Alimentos(2L,"azucar" ,100L, "gr",null, stock);
 		
 		Mockito.when(alimentoRepository.findAll()).thenReturn(Arrays.asList(ali1,ali2,ali3));
 		
@@ -56,8 +59,8 @@ public class AlimentosServiceTest {
 	@Test
 	public void when_saveAliment_then_ok() throws Exception {
 		
-		AlimentoDto aliDto = new AlimentoDto("harina" ,50, "gr");
-		Alimentos ali1 = new Alimentos(0L,"harina" ,50, "gr");
+		AlimentoDto aliDto = new AlimentoDto("harina" ,50L, "gr",new StockDto());
+		Alimentos ali1 = new Alimentos(0L,"harina" ,50L, "gr",null, new Stock());
 		
 		Mockito.when(alimentoRepository.save(Mockito.any(Alimentos.class))).thenReturn(ali1);
 		
@@ -70,8 +73,8 @@ public class AlimentosServiceTest {
 	@Test
 	public void when_updateAliment_then_ok() {
 		
-		AlimentoDto aliDto = new AlimentoDto("harina" ,50, "gr");
-		Alimentos ali1 = new Alimentos(0L,"leche" ,50, "gr");
+		AlimentoDto aliDto = new AlimentoDto("harina" ,50L, "gr",new StockDto());
+		Alimentos ali1 = new Alimentos(0L,"leche" ,50L, "gr",null, new Stock());
 		
 		Mockito.when(alimentoRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(ali1));
 		Mockito.when(alimentoRepository.save(Mockito.any(Alimentos.class))).thenReturn(ali1);
@@ -85,9 +88,9 @@ public class AlimentosServiceTest {
 	@Test
 	public void when_findByNameAliment_then_ok() {
 		
-		Alimentos ali1 = new Alimentos(0L,"leche" ,50, "gr");
+		Alimentos ali1 = new Alimentos(0L,"leche" ,50L, "gr",null, new Stock());
 		
-		Mockito.when(alimentoRepository.findByNombre(Mockito.anyString())).thenReturn(ali1);
+		Mockito.when(alimentoRepository.findByNombre(Mockito.anyString())).thenReturn(Optional.of(ali1));
 		
 		AlimentoDto result = alimentosService.verAliment("leche");
 		
