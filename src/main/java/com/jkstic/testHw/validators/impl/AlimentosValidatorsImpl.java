@@ -10,12 +10,14 @@ import com.jkstic.testHw.validators.AlimentosValidators;
 @Service
 public class AlimentosValidatorsImpl implements AlimentosValidators {
 
+	final int MIN_MEDIDA = 25;
+	
 	@Autowired
 	private AlimentoRepository alimentoRepository;
 
 	@Override
 	public void alimentosValidatos(AlimentoDto alimento) throws Exception {
-		if (alimento.getCantidad() < 25) {
+		if (alimento.getCantidad() < MIN_MEDIDA) {
 			throw new Exception("Medida no apta.");
 		}
 
