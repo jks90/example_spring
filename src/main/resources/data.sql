@@ -1,6 +1,3 @@
-
-
-
 INSERT INTO STOCK (cantidad_stock) VALUES ( 12);
 INSERT INTO STOCK (cantidad_stock) VALUES ( 2000);
 INSERT INTO STOCK (cantidad_stock) VALUES ( 1000);
