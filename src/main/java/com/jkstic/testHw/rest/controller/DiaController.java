@@ -43,7 +43,7 @@ public class DiaController {
 	@PostMapping(value = "/dia")
 	public ResponseEntity<?> createDia(@RequestBody DiaDto dia){
 		try {
-			diaValidators.diaValidator(dia);
+			diaValidators.createDiaValidator(dia);
 			DiaDto result = diaService.createDia(dia);
 			return new ResponseEntity<DiaDto>(result, HttpStatus.OK);
 		} catch (Exception e) {
